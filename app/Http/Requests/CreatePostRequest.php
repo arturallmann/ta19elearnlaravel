@@ -13,7 +13,8 @@ class CreatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return request()->route('post')->user->id === auth()->user()->id;
+        return true;
+        //return request()->route('post')->user->id === auth()->user()->id;
     }
 
     /**

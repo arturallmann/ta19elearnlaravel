@@ -27,8 +27,8 @@
             <textarea class="form-control" id="body" rows="3" name="body" required>{{old('body')}}</textarea>
         </div>
 
-        @error('image')
-            @foreach($errors->get('image') as $error)
+        @error('image[]')
+            @foreach($errors->get('image[]') as $error)
                 <div class="alert alert-danger" role="alert">
                     {{$error}}
                 </div>

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function apiPosts(){
+        return Post::with('images')->paginate();
+    }
+
+
     public function __construct(){
         $this->middleware(PostBelongsToAuth::class)->only(['show', 'edit','update', 'destroy']);
     }
@@ -50,14 +55,17 @@ class PostController extends Controller
 //            'body' => 'required',
 //        ]);
         $post = new Post($request->validated());
+        $post->user()->associate(auth()->user());
         $post->save();
-        foreach($request->validated()['image'] as $image) {
-            /** @var UploadedFile $image */
-            $path = $image->store('public');
-            $img = new Image();
-            $img->path = Storage::url($path);
-            $img->post()->associate($post);
-            $img->save();
+        if($request->validated()['image']) {
+            foreach ($request->validated()['image'] as $image) {
+                /** @var UploadedFile $image */
+                $path = $image->store('public');
+                $img = new Image();
+                $img->path = Storage::url($path);
+                $img->post()->associate($post);
+                $img->save();
+            }
         }
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
