@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->snippet}}</p>
-                        <p class="text-muted">{{$post->user->name}}</p>
+                        <a href="{{route('user', ['user' => $post->user])}}">{{$post->user->name}}</a>
                         <p class="text-muted">{{$post->created_at->diffForHumans()}}</p>
                         <p>
                             @foreach($post->tags as $tag)
