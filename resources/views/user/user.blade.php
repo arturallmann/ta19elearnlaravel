@@ -5,8 +5,9 @@
     <div class="card-body">
         <h2>{{$user->name}}</h2>
         <h3>Posts: {{$user->posts->count()}}</h3>
-        <h3>User comments: {{$user->comments->count()}}</h3>
+        <h3>User post comments: {{$user->postComments->count()}}</h3>
     </div>
+    {{$posts->links()}}
         @foreach($posts as $post)
             <div class="col">
                 <div class="card mt-3">
@@ -27,4 +28,5 @@
                 </div>
             </div>
     @endforeach
+    {{$posts->links()}}
 @endsection
