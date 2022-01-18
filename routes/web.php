@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/post/{post}', [HomeController::class, 'post']);
 Route::get('/tag/{tag}', [HomeController::class, 'tag'])->name('tag');
-
+Route::get('/user/{user}', [HomeController::class, 'user'])->name('user');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts.index');
