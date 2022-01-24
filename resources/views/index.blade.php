@@ -1,6 +1,16 @@
 @extends('layout')
 @section('title', 'Home Page')
 @section('content')
+    @isset($user)
+        <div class="card">
+            <div class="card-body">
+                <h1>{{$user->name}}</h1>
+                <p><b>Posts:</b>{{$user->posts()->count()}}</p>
+                <p><b>Comments:</b>{{$user->comments()->count()}}</p>
+                <p><b>Comments on Posts:</b>{{$user->commentsOnPosts()->count()}}</p>
+            </div>
+        </div>
+    @endif
     {{$posts->links()}}
     <div class="row row-cols-4">
         @foreach($posts as $post)
@@ -14,7 +24,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->snippet}}</p>
-                        <a href="{{route('user', ['user' => $post->user])}}">{{$post->user->name}}</a>
+                        <p class="text-muted"><a href="{{route('user', ['user' => $post->user])}}" class="card-link">{{ $post->user->name }}</a></p>
                         <p class="text-muted">{{$post->created_at->diffForHumans()}}</p>
                         <p>
                             @foreach($post->tags as $tag)
